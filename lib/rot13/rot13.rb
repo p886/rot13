@@ -23,8 +23,8 @@ class Rot13
   end
 
   def find_new_char(old_char)
-    return old_char if old_char.match(/\W/)
     alphabet   = ('A'..'Z').to_a
+    return old_char unless alphabet.include?(old_char.upcase)
     old_index  = alphabet.index(old_char.upcase)
     new_index  = (old_index + alphabet.length / 2) % alphabet.length
     new_letter = alphabet[new_index]
