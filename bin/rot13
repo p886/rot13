@@ -1,0 +1,9 @@
+#! /usr/bin/env ruby
+
+$LOAD_PATH.unshift(File.expand_path('../..', File.readlink(__FILE__)))
+require 'lib/rot13'
+
+string = ARGV[0..-1].join(' ')
+result = Rot13.new(string).transform.strip << "\n"
+
+STDOUT.write(result)
