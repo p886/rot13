@@ -1,34 +1,5 @@
 class Rot13
 
-  KEY_MAP = {
-    "A" => "N",
-    "B" => "O",
-    "C" => "P",
-    "D" => "Q",
-    "E" => "R",
-    "F" => "S",
-    "G" => "T",
-    "H" => "U",
-    "I" => "V",
-    "J" => "W",
-    "K" => "X",
-    "L" => "Y",
-    "M" => "Z",
-    "N" => "A",
-    "O" => "B",
-    "P" => "C",
-    "Q" => "D",
-    "R" => "E",
-    "S" => "F",
-    "T" => "G",
-    "U" => "H",
-    "V" => "I",
-    "W" => "J",
-    "X" => "K",
-    "Y" => "L",
-    "Z" => "M",
-  }
-
   def initialize(string)
     @string = string
   end
@@ -46,9 +17,17 @@ class Rot13
   attr_accessor :string
 
   def rotate_char(char, new_string)
-    new_char = (KEY_MAP[char.upcase] || ' ')
+    new_char = find_new_char(char)
     new_char.downcase! if !!(char.match(/[[:lower:]]/))
     new_string << new_char
+  end
+
+  def find_new_char(old_char)
+    return old_char if old_char.match(/\W/)
+    alphabet   = ('A'..'Z').to_a
+    old_index  = alphabet.index(old_char.upcase)
+    new_index  = (old_index + alphabet.length / 2) % alphabet.length
+    new_letter = alphabet[new_index]
   end
 
 end
